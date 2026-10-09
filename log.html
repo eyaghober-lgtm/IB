@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سجل الزيارات ولوحة المؤشرات | مدارس المنهل</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="mini"><div class="wrap" style="max-width:1000px">
+  <a href="index.html"><img src="assets/logo.png" alt="مدارس المنهل"></a>
+  <ul><li><a href="index.html">الرئيسية</a></li><li><a href="form.html">الاستمارة</a></li><li><a class="on" href="log.html">السجل</a></li><li><a href="setup.html">⚙ القوائم</a></li></ul>
+</div></header>
+
+<main class="lwrap">
+  <h1>سجل الزيارات ولوحة المؤشرات</h1>
+  <p class="sub">تُحفظ الزيارات في هذا المتصفح (على هذا الجهاز فقط). صدّرها إلى Excel/CSV لدمجها في سجل الإشراف.</p>
+  <div class="acts"><a class="btn p sm" href="form.html">+ زيارة جديدة</a><button class="btn o sm" onclick="loadDemo()">تحميل بيانات تجريبية (12 زيارة)</button></div>
+  <div class="grid g2">
+    <div class="card"><h3>متوسط كل بند IB في المدرسة</h3><div id="dash"></div></div>
+    <div class="card"><h3>الجاهزية لزيارة التصريح (Authorization Visit)</h3><div id="ready"></div></div>
+  </div>
+  <div class="card"><h3>الورش المقترحة تلقائياً</h3><div id="ws"></div></div>
+  <div class="card"><h3>خطة التجربة المقترحة (شهر واحد)</h3>
+    <div class="grid g4"><div><b>الأسبوع 1</b><p>اعتماد الاستمارة وتدريب المشرفين على المقياس 1–4.</p></div><div><b>الأسبوع 2</b><p>زيارات تجريبية في صف واحد (3–4 معلمين).</p></div><div><b>الأسبوع 3</b><p>مراجعة اللوحة وتحديد أضعف بند وورشة علاجية.</p></div><div><b>الأسبوع 4</b><p>تقييم التجربة ثم قرار التعميم على بقية الصفوف.</p></div></div></div>
+  <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>الفرع</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="acts" style="padding:16px 0 0"><button class="btn p sm" onclick="exportCsv()">تصدير CSV</button><button class="btn o sm" onclick="clearAll()">حذف كل الزيارات</button></div>
+</main>
+<script src="assets/common.js"></script>
+<script src="assets/log.js"></script>
+</body>
+</html>

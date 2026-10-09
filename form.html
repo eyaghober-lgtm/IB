@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>استمارة الزيارة الصفية IB | مدارس المنهل</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="mini"><div class="wrap">
+  <a href="index.html"><img src="assets/logo.png" alt="مدارس المنهل"></a>
+  <ul><li><a href="index.html">الرئيسية</a></li><li><a class="on" href="form.html">الاستمارة</a></li><li><a href="log.html">السجل</a></li><li><a href="setup.html">⚙ القوائم</a></li></ul>
+</div></header>
+
+<main class="fwrap">
+  <div class="ftitle"><h1>استمارة زيارة صفية IB</h1><small>قيّم كل بند من 1 إلى 4 · النسبة = المجموع ÷ 40</small></div>
+  <div class="csheet">
+    <div class="cmeta">
+      <div><label>المشرف / الزائر</label><select id="sup"></select></div>
+      <div><label>الفرع</label><select id="br"></select></div>
+      <div><label>اسم المعلم</label><select id="tch"></select></div>
+      <div><label>المادة</label><select id="sub"></select></div>
+      <div><label>الصف</label><input id="cls" placeholder="مثال: 7A"></div>
+      <div><label>التاريخ</label><input id="dt" type="date"></div>
+      <div class="csetup">الأسماء تُدار من <a href="setup.html">صفحة القوائم</a>، وعند اختيار المعلم تُملأ مادته وفرعه تلقائياً.</div>
+    </div>
+    <div id="rows"></div>
+    <div class="ckey"><span>1 غير موجود</span><span>2 بداية</span><span>3 متحقق</span><span>4 متميّز</span></div>
+    <div class="cbar">
+      <div class="mring" id="ring"><div id="pct">0%</div></div>
+      <div class="cinfo"><b>نسبة الأداء <span id="sum"></span><span class="cgrade" id="grade" style="display:none"></span></b><span id="note">قيّم البنود لعرض النتيجة</span></div>
+      <button class="btn g sm" onclick="resetForm()">مسح</button>
+      <button class="btn p sm" onclick="saveVisit()">حفظ وإصدار التغذية الراجعة</button>
+    </div>
+    <details class="cextra"><summary>ملف المعلم في الـ IB (مخطط)</summary>
+      <div class="inner"><div id="radar"></div><p>يتحدّث مباشرة أثناء التقييم: المساحة الصغيرة تعني بنوداً تحتاج دعماً.</p></div></details>
+    <div class="fb" id="fb" hidden></div>
+  </div>
+  <p class="ckey" style="padding:10px 4px;background:none"><span>تُحفظ الزيارات في هذا المتصفح فقط.</span><span><a href="log.html" style="color:var(--teal)">فتح السجل</a></span><span><a href="javascript:window.print()" style="color:var(--teal)">طباعة / PDF</a></span></p>
+</main>
+<script src="assets/common.js"></script>
+<script src="assets/form.js"></script>
+</body>
+</html>
