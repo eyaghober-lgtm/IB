@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إعداد القوائم | مدارس المنهل</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1f4d;--navy-2:#142c6b;--sky:#4cc3e8;--teal:#1fa9c9;--bg:#f5f8fc;--card:#fff;--ink:#0f1b3a;--muted:#5b6785;--line:#e1e8f2;--low:#e5484d;--ok:#17a673;--r:18px;--shadow:0 10px 30px -12px rgba(11,31,77,.25)}
+@media(prefers-color-scheme:dark){:root{--bg:#0a1226;--card:#111c38;--ink:#e8eefc;--muted:#9aa8c9;--line:#22305a;--shadow:0 10px 30px -12px rgba(0,0,0,.6)}}
+*{box-sizing:border-box;margin:0}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+header{background:radial-gradient(900px 400px at 85% -20%,rgba(76,195,232,.35),transparent),linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:26px 0 60px}
+header .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header img{height:64px}
+.back{color:#fff;text-decoration:none;padding:9px 18px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);transition:.2s}
+.back:hover{background:var(--sky);color:var(--navy);transform:translateX(4px)}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);margin-top:22px}
+header p{color:#cfe0ff;max-width:620px}
+main{margin-top:-34px;padding-bottom:60px}
+.meter{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.meter .bar{flex:1;min-width:180px;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter .bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--teal));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s;animation:rise .5s both}
+.card:nth-child(2){animation-delay:.07s}.card:nth-child(3){animation-delay:.14s}.card:nth-child(4){animation-delay:.21s}
+.card:hover{transform:translateY(-4px);border-color:var(--sky);box-shadow:0 18px 40px -16px rgba(31,169,201,.45)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ch{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ico{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--sky),var(--teal));display:grid;place-items:center;font-size:1.3rem;transition:transform .3s}
+.card:hover .ico{transform:rotate(-8deg) scale(1.1)}
+.ch h2{font-size:1.15rem;flex:1}
+.count{min-width:34px;height:28px;padding:0 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+.count.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.35);background:var(--sky);color:var(--navy)}}
+.add{display:flex;gap:8px;flex-wrap:wrap}
+.add input,.add select,.search{flex:1;min-width:110px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:.95rem;transition:border-color .2s,box-shadow .2s}
+.add input:focus,.add select:focus,.search:focus,textarea:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 4px rgba(76,195,232,.25)}
+.btn{padding:10px 18px;border-radius:12px;border:0;font-family:inherit;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff;transition:transform .15s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.btn:active{transform:scale(.96)}
+.btn.o{background:transparent;color:var(--teal);border:1px solid var(--teal)}
+.tools{display:flex;gap:10px;margin:12px 0 4px;align-items:center}
+.tools .search{padding:7px 12px;font-size:.85rem}
+.link{background:none;border:0;color:var(--teal);cursor:pointer;font-family:inherit;font-size:.85rem;white-space:nowrap}
+textarea{width:100%;margin-top:10px;min-height:90px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font-family:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:34px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 8px 6px 14px;border-radius:99px;background:var(--bg);border:1px solid var(--line);font-size:.9rem;animation:chipIn .35s both;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s;cursor:default}
+.chip:hover{transform:translateY(-2px) scale(1.04);background:rgba(76,195,232,.15);border-color:var(--sky);box-shadow:0 6px 14px -8px var(--teal)}
+.chip small{color:var(--muted);font-size:.75rem}
+.chip button{width:22px;height:22px;border-radius:50%;border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:1rem;line-height:1;opacity:0;transform:scale(.6);transition:.2s}
+.chip:hover button,.chip:focus-within button{opacity:1;transform:none}
+.chip button:hover{background:var(--low);color:#fff}
+@media(hover:none){.chip button{opacity:1;transform:none}}
+.chip.out{animation:chipOut .25s forwards}
+@keyframes chipIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes chipOut{to{opacity:0;transform:scale(.4)}}
+.empty{color:var(--muted);font-size:.9rem;padding:8px 0}
+.hint{font-size:.82rem;color:var(--muted);margin-top:8px}
+.foot{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;justify-content:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,40px);opacity:0;background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;box-shadow:var(--shadow);transition:.3s;z-index:50;font-weight:500}
+.toast.on{transform:translate(-50%,0);opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><img src="assets/logo-white.png" alt="مدارس المنهل"><a class="back" href="index.html#form">← الرجوع إلى الاستمارة</a></div>
+  <h1>إعداد القوائم</h1>
+  <p>أضف المشرفين والفروع والمواد والمعلمين مرة واحدة، وستظهر تلقائياً في الاستمارة. عند اختيار معلم تُملأ مادته وفرعه تلقائياً.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="meter"><b>اكتمال البيانات</b><div class="bar"><b id="meterBar"></b></div><span id="meterTxt" style="color:var(--muted);font-size:.9rem"></span></div>
+  <div class="grid" id="cards"></div>
+  <div class="foot">
+    <button class="btn" onclick="exportJson()">⬇ نسخة احتياطية (JSON)</button>
+    <button class="btn o" onclick="document.getElementById('imp').click()">⬆ استيراد نسخة</button>
+    <input type="file" id="imp" accept=".json" hidden>
+  </div>
+  <p class="hint" style="text-align:center">القوائم تُحفظ في هذا المتصفح على هذا الجهاز. استخدم النسخة الاحتياطية لنقلها إلى جهاز آخر.</p>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const L={
+ sup:store.get("ib_sup",["رئيس التدقيق","نائب المدير"]),
+ tch:store.get("ib_tch",[]),
+ sub:store.get("ib_sub",["اللغة العربية","اللغة الإنجليزية","الرياضيات","العلوم","الدراسات الاجتماعية","التصميم","الفنون","التربية البدنية"]),
+ br:store.get("ib_br",[])};
+let meta=store.get("ib_tmeta",{});
+const defs=[
+ {k:"sup",t:"المشرفون / الزوار",i:"🧭",ph:"اسم المشرف…"},
+ {k:"br",t:"الفروع",i:"🏫",ph:"اسم الفرع…"},
+ {k:"sub",t:"المواد",i:"📚",ph:"اسم المادة…"},
+ {k:"tch",t:"المعلمون",i:"👩‍🏫",ph:"اسم المعلم…",teacher:true}];
+const norm=s=>s.trim().replace(/\s+/g," ").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").toLowerCase();
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const filt={};
+function save(){["sup","tch","sub","br"].forEach(k=>store.set("ib_"+k,L[k]));store.set("ib_tmeta",meta)}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),1800)}
+
+function build(){
+  const box=document.getElementById("cards");
+  box.innerHTML=defs.map(d=>`<div class="card" id="c_${d.k}">
+    <div class="ch"><div class="ico">${d.i}</div><h2>${d.t}</h2><span class="count" id="n_${d.k}">0</span></div>
+    <form class="add" onsubmit="return add('${d.k}',event)">
+      <input id="in_${d.k}" placeholder="${d.ph}" autocomplete="off">
+      ${d.teacher?`<select id="s_sub"></select><select id="s_br"></select>`:""}
+      <button class="btn" type="submit">إضافة</button>
+    </form>
+    <div class="tools"><input class="search" placeholder="بحث…" oninput="filt['${d.k}']=this.value;chips('${d.k}')"><button class="link" onclick="toggleBulk('${d.k}')">لصق قائمة</button></div>
+    <div id="bulk_${d.k}" hidden><textarea id="ta_${d.k}" placeholder="اكتب كل اسم في سطر…"></textarea><button class="btn" style="margin-top:8px" onclick="bulk('${d.k}')">إضافة الكل</button></div>
+    <div class="chips" id="ch_${d.k}"></div>
+    ${d.teacher?`<p class="hint">💡 اختر المادة والفرع قبل الإضافة، وستُملأ تلقائياً في الاستمارة.</p>`:""}
+  </div>`).join("");
+  selects();defs.forEach(d=>chips(d.k));meter()}
+
+function selects(){
+  const a=document.getElementById("s_sub"),b=document.getElementById("s_br");if(!a)return;
+  const va=a.value,vb=b.value;
+  a.innerHTML=`<option value="">المادة</option>`+L.sub.map(x=>`<option>${esc(x)}</option>`).join("");
+  b.innerHTML=`<option value="">الفرع</option>`+L.br.map(x=>`<option>${esc(x)}</option>`).join("");
+  a.value=L.sub.includes(va)?va:"";b.value=L.br.includes(vb)?vb:""}
+
+function chips(k){
+  const q=norm(filt[k]||""),el=document.getElementById("ch_"+k);
+  const list=L[k].filter(x=>!q||norm(x).includes(q));
+  el.innerHTML=list.length?list.map(x=>{
+    const m=k==="tch"?meta[x]||{}:null,tag=m&&(m.sub||m.br)?`<small>${esc([m.sub,m.br].filter(Boolean).join(" · "))}</small>`:"";
+    return `<span class="chip" data-n="${esc(x)}">${esc(x)}${tag}<button title="حذف" onclick="del('${k}',this)">×</button></span>`}).join(""):`<span class="empty">${L[k].length?"لا نتائج.":"لا توجد عناصر بعد. أضف أول عنصر."}</span>`;
+  const n=document.getElementById("n_"+k);n.textContent=L[k].length}
+function bump(k){const n=document.getElementById("n_"+k);n.classList.remove("pop");void n.offsetWidth;n.classList.add("pop")}
+
+function addOne(k,v){
+  v=v.trim().replace(/\s+/g," ");if(!v)return false;
+  if(L[k].some(x=>norm(x)===norm(v))){toast("«"+v+"» موجود مسبقاً");return false}
+  L[k].push(v);
+  if(k==="tch"){const s=document.getElementById("s_sub").value,b=document.getElementById("s_br").value;if(s||b)meta[v]={sub:s,br:b}}
+  return true}
+function add(k,e){
+  e.preventDefault();const i=document.getElementById("in_"+k);
+  if(addOne(k,i.value)){save();toast("تمت الإضافة ✓");i.value="";chips(k);bump(k);if(k==="sub"||k==="br")selects();meter()}
+  i.focus();return false}
+function toggleBulk(k){const b=document.getElementById("bulk_"+k);b.hidden=!b.hidden;if(!b.hidden)document.getElementById("ta_"+k).focus()}
+function bulk(k){
+  const ta=document.getElementById("ta_"+k);let n=0;
+  ta.value.split(/\n|،|,/).forEach(x=>{if(addOne(k,x))n++});
+  save();ta.value="";chips(k);if(n)bump(k);if(k==="sub"||k==="br")selects();meter();toast(n?`أُضيف ${n} عنصر ✓`:"لا عناصر جديدة")}
+function del(k,btn){
+  const chip=btn.closest(".chip"),name=chip.dataset.n;chip.classList.add("out");
+  setTimeout(()=>{
+    L[k]=L[k].filter(x=>x!==name);
+    if(k==="tch")delete meta[name];
+    if(k==="sub"||k==="br"){const f=k;Object.values(meta).forEach(m=>{if(m[f]===name)m[f]=""})}
+    save();chips(k);bump(k);if(k==="sub"||k==="br"){selects();chips("tch")}meter();toast("تم الحذف")},230)}
+
+function meter(){
+  const t=L.tch.length,ok=L.tch.filter(n=>meta[n]&&meta[n].sub&&meta[n].br).length;
+  const lists=[L.sup.length,L.br.length,L.sub.length,t].filter(Boolean).length;
+  const p=Math.round((lists/4*50)+(t?ok/t*50:0));
+  document.getElementById("meterBar").style.width=p+"%";
+  document.getElementById("meterTxt").textContent=!L.br.length?"أضف فرعاً واحداً على الأقل.":!t?"أضف المعلمين لتفعيل التعبئة التلقائية.":`${ok} من ${t} معلماً لديهم مادة وفرع (${p}%)`}
+
+function exportJson(){
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({...L,meta,visits:store.get("ib_visits",[])},null,1)],{type:"application/json"}));a.download="ib-setup-backup.json";a.click()}
+document.getElementById("imp").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  f.text().then(t=>{try{const d=JSON.parse(t);["sup","tch","sub","br"].forEach(k=>{if(Array.isArray(d[k]))L[k]=d[k]});meta=d.meta||{};if(Array.isArray(d.visits))store.set("ib_visits",d.visits);save();build();toast("تم الاستيراد ✓")}catch(x){toast("ملف غير صالح")}})};
+build();
+</script>
+</body>
+</html>

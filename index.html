@@ -93,6 +93,9 @@ tr:last-child td{border-bottom:0}
 .bar i{display:block;height:10px;border-radius:99px;background:var(--line);overflow:hidden}.bar i b{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--teal))}
 .bar.weak i b{background:var(--low)}
 .del{background:none;border:0;color:var(--low);cursor:pointer;font-family:inherit}
+.setupbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.setupbar .btn{padding:8px 18px;font-size:.9rem;transition:transform .2s,box-shadow .2s}
+.setupbar .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px -8px var(--teal)}
 .tabs{display:flex;gap:8px;flex-wrap:wrap}
 .tab{padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:600}
 .tab.on{background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff;border-color:transparent}
@@ -115,7 +118,7 @@ footer img{height:56px;margin-bottom:10px}
 <body>
 <nav><div class="wrap">
   <img src="assets/logo.png" alt="مدارس المنهل">
-  <ul><li><a href="#gap">الوضع الحالي</a></li><li><a href="#idea">الفكرة</a></li><li><a href="#value">القيمة</a></li><li><a href="#form">الاستمارة</a></li><li><a href="#log">السجل</a></li><li><a href="#classes">التصنيف</a></li></ul>
+  <ul><li><a href="#gap">الوضع الحالي</a></li><li><a href="#idea">الفكرة</a></li><li><a href="#value">القيمة</a></li><li><a href="#form">الاستمارة</a></li><li><a href="#log">السجل</a></li><li><a href="setup.html">⚙ القوائم</a></li><li><a href="#classes">التصنيف</a></li></ul>
 </div></nav>
 
 <header class="hero"><div class="wrap">
@@ -184,8 +187,10 @@ footer img{height:56px;margin-bottom:10px}
   <h2>استمارة الزيارة الصفية</h2>
   <p class="sub">نموذج تفاعلي: اختر الدرجة لكل بند وستُحسب النسبة والتصنيف فوراً.</p>
   <div class="sheet">
+    <div class="setupbar"><span>القوائم (المشرفون، الفروع، المواد، المعلمون) تُدار من صفحة منفصلة.</span><a class="btn p" href="setup.html">⚙ إدارة القوائم</a></div>
     <div class="meta">
       <div><label>المشرف / الزائر</label><select id="sup"></select></div>
+      <div><label>الفرع</label><select id="br"></select></div>
       <div><label>اسم المعلم</label><select id="tch"></select></div>
       <div><label>المادة</label><select id="sub"></select></div>
       <div><label>الصف</label><input id="cls" placeholder="مثال: 7A"></div>
@@ -215,7 +220,7 @@ footer img{height:56px;margin-bottom:10px}
   <div class="card" style="margin-bottom:18px"><h3>الورش المقترحة تلقائياً</h3><div id="ws"><p>تظهر بعد حفظ الزيارات.</p></div></div>
   <div class="card" style="margin-bottom:18px"><h3>خطة التجربة المقترحة (شهر واحد)</h3>
     <div class="grid g4"><div><b>الأسبوع 1</b><p>اعتماد الاستمارة وتدريب المشرفين على المقياس 1–4.</p></div><div><b>الأسبوع 2</b><p>زيارات تجريبية في صف واحد (3–4 معلمين).</p></div><div><b>الأسبوع 3</b><p>مراجعة اللوحة وتحديد أضعف بند وورشة علاجية.</p></div><div><b>الأسبوع 4</b><p>تقييم التجربة ثم قرار التعميم على بقية الصفوف.</p></div></div></div>
-  <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>الفرع</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
   <div class="acts" style="padding:18px 0 0"><button class="btn p" onclick="exportCsv()">تصدير CSV</button><button class="btn o" onclick="clearAll()">حذف كل الزيارات</button></div>
 </div></section>
 
@@ -278,11 +283,18 @@ function resetForm(){document.querySelectorAll("#rows input").forEach(i=>i.check
 /* ---------- lists (editable, stored in browser) ---------- */
 const ADD="➕ إضافة جديد…";
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const lists={sup:store.get("ib_sup",["رئيس التدقيق","نائب المدير"]),tch:store.get("ib_tch",[]),sub:store.get("ib_sub",["اللغة العربية","اللغة الإنجليزية","الرياضيات","العلوم","الدراسات الاجتماعية","التصميم","الفنون","التربية البدنية"])};
+const lists={br:store.get("ib_br",[]),sup:store.get("ib_sup",["رئيس التدقيق","نائب المدير"]),tch:store.get("ib_tch",[]),sub:store.get("ib_sub",["اللغة العربية","اللغة الإنجليزية","الرياضيات","العلوم","الدراسات الاجتماعية","التصميم","الفنون","التربية البدنية"])};
 function fillSel(id){const s=document.getElementById(id),cur=s.value;
   s.innerHTML=`<option value="">— اختر —</option>`+lists[id].map(x=>`<option>${x}</option>`).join("")+`<option value="__add">${ADD}</option>`;
   if(cur&&lists[id].includes(cur))s.value=cur}
-["sup","tch","sub"].forEach(id=>{fillSel(id);document.getElementById(id).addEventListener("change",e=>{
+function syncLists(){
+  lists.br=store.get("ib_br",lists.br);lists.sup=store.get("ib_sup",lists.sup);lists.tch=store.get("ib_tch",lists.tch);lists.sub=store.get("ib_sub",lists.sub);
+  ["sup","br","tch","sub"].forEach(fillSel)}
+window.addEventListener("focus",syncLists);window.addEventListener("storage",syncLists);
+document.getElementById("tch").addEventListener("change",e=>{
+  const m=store.get("ib_tmeta",{})[e.target.value];
+  if(m){if(m.sub&&lists.sub.includes(m.sub))document.getElementById("sub").value=m.sub;if(m.br&&lists.br.includes(m.br))document.getElementById("br").value=m.br}});
+["sup","br","tch","sub"].forEach(id=>{fillSel(id);document.getElementById(id).addEventListener("change",e=>{
   if(e.target.value!=="__add")return;
   const v=(prompt("اكتب الاسم:")||"").trim();
   if(v&&!lists[id].includes(v)){lists[id].push(v);store.set("ib_"+id,lists[id])}
@@ -295,11 +307,11 @@ const lvl=["","غير موجود","بداية","متحقق","متميّز"];
 function current(){
   const sc=items.map((_,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);return c?+c.value:0});
   const sum=sc.reduce((a,b)=>a+b,0),pct=Math.round(sum/40*100);
-  return{date:document.getElementById("dt").value,sup:sup.value,tch:tch.value,sub:sub.value,cls:cls.value,sc,sum,pct,grade:pct>=90?"A":pct>=80?"B":"C"}}
+  return{date:document.getElementById("dt").value,sup:sup.value,br:br.value,tch:tch.value,sub:sub.value,cls:cls.value,sc,sum,pct,grade:pct>=90?"A":pct>=80?"B":"C"}}
 function feedbackHtml(v){
   const strong=v.sc.map((s,i)=>[s,i]).filter(x=>x[0]>=3),weak=v.sc.map((s,i)=>[s,i]).filter(x=>x[0]<=2);
   return `<h3 style="margin-top:0">التغذية الراجعة النهائية</h3>
-  <p><b>${v.tch||"—"}</b> · ${v.sub||"—"} · ${v.cls||"—"} · ${v.date||""}<br>المشرف: ${v.sup||"—"}</p>
+  <p><b>${v.tch||"—"}</b> · ${v.br||"—"} · ${v.sub||"—"} · ${v.cls||"—"} · ${v.date||""}<br>المشرف: ${v.sup||"—"}</p>
   <p>نسبة الأداء <b>${v.pct}%</b> (${v.sum}/40) — التصنيف <b>${v.grade}</b></p>
   <h3>نقاط القوة</h3><ul>${strong.length?strong.map(x=>`<li>${items[x[1]][0]} — ${lvl[x[0]]}</li>`).join(""):"<li>لا توجد بنود بدرجة 3 أو أعلى.</li>"}</ul>
   <h3>مجالات التطوير والتوصيات</h3><ul>${weak.length?weak.map(x=>`<li><b>${items[x[1]][0]}</b> (${lvl[x[0]]}): ${tips[x[1]]}</li>`).join(""):"<li>جميع البنود متحققة أو متميّزة. استمر.</li>"}</ul>`}
@@ -314,7 +326,7 @@ function saveVisit(){
 /* ---------- log + dashboard ---------- */
 function render(){
   const all=store.get("ib_visits",[]);
-  document.querySelector("#logt tbody").innerHTML=all.map((v,i)=>`<tr><td>${v.date}</td><td>${v.tch}</td><td>${v.sub}</td><td>${v.cls}</td><td>${v.sup}</td><td>${v.pct}%</td><td>${v.grade}</td><td><button class="del" onclick="delVisit(${i})">حذف</button></td></tr>`).join("")||`<tr><td colspan="8">لا توجد زيارات.</td></tr>`;
+  document.querySelector("#logt tbody").innerHTML=all.map((v,i)=>`<tr><td>${v.date}</td><td>${v.tch}</td><td>${v.br||""}</td><td>${v.sub}</td><td>${v.cls}</td><td>${v.sup}</td><td>${v.pct}%</td><td>${v.grade}</td><td><button class="del" onclick="delVisit(${i})">حذف</button></td></tr>`).join("")||`<tr><td colspan="9">لا توجد زيارات.</td></tr>`;
   extra(all);
   const d=document.getElementById("dash");
   if(!all.length){d.innerHTML="<p>لا توجد زيارات محفوظة بعد.</p>";return}
@@ -326,9 +338,9 @@ function delVisit(i){const a=store.get("ib_visits",[]);a.splice(i,1);store.set("
 function clearAll(){if(confirm("حذف كل الزيارات المحفوظة؟")){store.set("ib_visits",[]);render()}}
 function exportCsv(){
   const all=store.get("ib_visits",[]);if(!all.length)return;
-  const head=["التاريخ","المعلم","المادة","الصف","المشرف",...items.map(i=>i[0]),"المجموع","النسبة","التصنيف"];
+  const head=["التاريخ","المعلم","الفرع","المادة","الصف","المشرف",...items.map(i=>i[0]),"المجموع","النسبة","التصنيف"];
   const q=s=>`"${String(s).replace(/"/g,'""')}"`;
-  const csv="﻿"+[head,...all.map(v=>[v.date,v.tch,v.sub,v.cls,v.sup,...v.sc,v.sum,v.pct+"%",v.grade])].map(r=>r.map(q).join(",")).join("\n");
+  const csv="﻿"+[head,...all.map(v=>[v.date,v.tch,v.br||"",v.sub,v.cls,v.sup,...v.sc,v.sum,v.pct+"%",v.grade])].map(r=>r.map(q).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="ib-observations.csv";a.click()}
 /* ---------- value demo: same 75%, different problems ---------- */
 const teachers=[
