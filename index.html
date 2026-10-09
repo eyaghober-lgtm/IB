@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>استمارة زيارة صفية IB | مدارس المنهل</title>
+<meta name="description" content="مقترح إضافة استمارة زيارة صفية IB داخل سجل الإشراف: 10 بنود، مقياس 1–4، نسبة أداء تلقائية.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b1f4d; --navy-2:#142c6b; --sky:#4cc3e8; --teal:#1fa9c9;
+  --bg:#f5f8fc; --card:#ffffff; --ink:#0f1b3a; --muted:#5b6785; --line:#e1e8f2;
+  --ok:#17a673; --mid:#e9a21a; --low:#e5484d; --r:18px;
+  --shadow:0 10px 30px -12px rgba(11,31,77,.25);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0a1226;--card:#111c38;--ink:#e8eefc;--muted:#9aa8c9;--line:#22305a;--shadow:0 10px 30px -12px rgba(0,0,0,.6)}
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.8}
+.wrap{max-width:1080px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+nav img{height:44px}
+nav ul{display:flex;gap:22px;list-style:none;padding:0;font-size:.92rem}
+nav a{color:var(--muted);text-decoration:none;font-weight:500}
+nav a:hover{color:var(--teal)}
+@media(max-width:700px){nav ul{display:none}}
+.hero{background:radial-gradient(1200px 500px at 85% -10%,rgba(76,195,232,.35),transparent),linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:84px 0 110px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -80px -120px auto;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(76,195,232,.25),transparent 70%)}
+.hero img{height:92px;margin-bottom:26px}
+.tag{display:inline-block;padding:4px 14px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:.85rem;margin-bottom:16px}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.3;font-weight:700;max-width:760px}
+.hero h1 span{color:var(--sky)}
+.hero p{max-width:620px;margin-top:16px;color:#cfe0ff;font-size:1.1rem}
+.btns{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{padding:12px 26px;border-radius:12px;font-weight:600;text-decoration:none;font-family:inherit;border:0;cursor:pointer;font-size:1rem}
+.btn.p{background:var(--sky);color:var(--navy)}
+.btn.g{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+section{padding:70px 0}
+h2{font-size:1.9rem;font-weight:700;margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:34px;max-width:640px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card p,.card li{color:var(--muted);font-size:.95rem}
+.badge{display:inline-block;font-size:.78rem;padding:2px 12px;border-radius:99px;font-weight:600}
+.b-ok{background:rgba(23,166,115,.14);color:var(--ok)}.b-no{background:rgba(229,72,77,.14);color:var(--low)}
+.pull{margin-top:18px;border-right:4px solid var(--low);padding:16px 20px;background:rgba(229,72,77,.07);border-radius:12px}
+.step{position:relative;padding-top:46px}
+.step b{position:absolute;top:18px;right:24px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff;display:grid;place-items:center}
+.step{padding-top:70px}
+/* form */
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;padding:20px;background:linear-gradient(135deg,rgba(76,195,232,.12),transparent);border-bottom:1px solid var(--line)}
+.meta label{font-size:.8rem;color:var(--muted);display:block}
+.meta input{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.row:last-of-type{border-bottom:0}
+.num{width:36px;height:36px;border-radius:10px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:600}
+.row h4{font-size:1rem;font-weight:600}.row small{color:var(--muted)}
+.scale{display:flex;gap:6px}
+.scale input{display:none}
+.scale label{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;border:1px solid var(--line);cursor:pointer;font-weight:600;transition:.15s;background:var(--bg)}
+.scale label:hover{border-color:var(--teal)}
+.scale input:checked+label{background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff;border-color:transparent;transform:scale(1.08)}
+@media(max-width:640px){.row{grid-template-columns:36px 1fr}.scale{grid-column:1/-1;justify-content:center}}
+.key{padding:12px 20px;background:var(--bg);color:var(--muted);font-size:.85rem;display:flex;gap:18px;flex-wrap:wrap}
+.result{display:flex;align-items:center;gap:28px;padding:26px 20px;background:var(--navy);color:#fff;flex-wrap:wrap}
+.ring{--p:0;width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--sky) calc(var(--p)*1%),rgba(255,255,255,.15) 0);display:grid;place-items:center;flex:none;transition:.4s}
+.ring div{width:92px;height:92px;border-radius:50%;background:var(--navy);display:grid;place-items:center;font-size:1.7rem;font-weight:700}
+.result h3{font-size:1.2rem}.result p{color:#b9c9ee;font-size:.92rem}
+.grade{display:inline-block;padding:3px 16px;border-radius:99px;font-weight:700;margin-top:6px;background:var(--sky);color:var(--navy)}
+.reset{margin-inline-start:auto;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);padding:8px 18px;border-radius:10px;cursor:pointer;font-family:inherit}
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+th,td{padding:14px 18px;text-align:right;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:#fff;font-weight:600}
+tr:last-child td{border-bottom:0}
+.quote{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:var(--r);padding:40px;font-size:1.25rem;line-height:2;position:relative}
+.quote::before{content:"“";position:absolute;top:-6px;right:24px;font-size:6rem;color:var(--sky);opacity:.5}
+footer{background:var(--navy);color:#b9c9ee;padding:36px 0;text-align:center}
+footer img{height:56px;margin-bottom:10px}
+@media print{nav,.hero,.btns,.reset,#proposal,#classes,#pitch{display:none}.sheet{box-shadow:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <img src="assets/logo.png" alt="مدارس المنهل">
+  <ul><li><a href="#gap">الوضع الحالي</a></li><li><a href="#idea">الفكرة</a></li><li><a href="#form">الاستمارة</a></li><li><a href="#classes">التصنيف</a></li></ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <img src="assets/logo-white.png" alt="مدارس المنهل">
+  <div><span class="tag">مقترح · برنامج السنوات المتوسطة MYP</span></div>
+  <h1>استمارة زيارة صفية <span>IB</span> داخل سجل الإشراف</h1>
+  <p>ملفاتنا الحالية تقيس الأداء العام، لكنها لا تقيس تطبيق الـ IB. إضافة بسيطة داخل نفس الملف تجعل كل زيارة دليلاً على تطبيق معايير الـ IB.</p>
+  <div class="btns"><a class="btn p" href="#form">جرّب الاستمارة</a><a class="btn g" href="#idea">اعرف الفكرة</a></div>
+</div></header>
+
+<section id="gap"><div class="wrap">
+  <h2>ماذا يوجد في الملفين الحاليين؟</h2>
+  <p class="sub">ملفان جيدان، لكنهما يقيسان الإشراف العام فقط.</p>
+  <div class="grid g2">
+    <div class="card"><span class="badge b-ok">منظّم ويعمل</span><h3 style="margin-top:10px">سجل الإشراف</h3>
+      <p>اسم المعلم، المادة، نوع الزيارة، نسبة الأداء %، نسبة التحصيل %، الممارسات الإشرافية، ولوحة مؤشرات تُحسب تلقائياً.</p></div>
+    <div class="card"><span class="badge b-no">فارغ حالياً</span><h3 style="margin-top:10px">تصنيف المعلمين</h3>
+      <p>تصنيف المعلمين إلى A وB وC حسب المادة.</p></div>
+  </div>
+  <div class="pull"><b>ما الذي ينقصهما؟</b>
+    <p style="color:var(--ink)">لا يوجد في أيٍّ من الملفين أي بند عن تطبيق الـ IB داخل الصف. و«نسبة الأداء %» رقم واحد يُكتب يدوياً بلا أساس واضح: إذا كُتب لمعلم 75%، لا أحد يعرف هل الضعف في السياق العالمي أم في ATL أم في الاستقصاء. والمدرسة مرشّحة (Candidate) لبرنامج MYP، وهذا بالضبط ما سيبحث عنه زائر الـ IB في زيارة التصريح (Authorization Visit).</p></div>
+</div></section>
+
+<section id="idea" style="background:var(--card);border-block:1px solid var(--line)"><div class="wrap">
+  <h2>الفكرة: ورقة جديدة داخل نفس الملف</h2>
+  <p class="sub">دون ملف جديد ودون نظام جديد. أربع خطوات:</p>
+  <div class="grid g4">
+    <div class="card step"><b>1</b><h3>ورقة «IB Classroom Observation»</h3><p>يقيّم فيها رئيس التدقيق أو نائب المدير بنود الجدول على مقياس 1–4 أثناء الزيارة.</p></div>
+    <div class="card step"><b>2</b><h3>نسبة أداء تلقائية</h3><p>تخرج النسبة من البنود بدل كتابتها يدوياً، فيصبح التقييم عادلاً ومفهوماً للمعلم.</p></div>
+    <div class="card step"><b>3</b><h3>تصنيف A/B/C تلقائي</h3><p>ملف التصنيف يأخذ النسب من الزيارات ويضع كل معلم في فئته.</p></div>
+    <div class="card step"><b>4</b><h3>مؤشرات IB في اللوحة</h3><p>مثل «أضعف بند IB في المدرسة هو السياق العالمي»، فيصبح موضوع الورشة القادمة.</p></div>
+  </div>
+  <p class="sub" style="margin-top:24px"><b>البداية المقترحة:</b> تجربة على صف واحد لمدة شهر، ثم التعميم على بقية الصفوف.</p>
+</div></section>
+
+<section id="form"><div class="wrap">
+  <h2>استمارة الزيارة الصفية</h2>
+  <p class="sub">نموذج تفاعلي: اختر الدرجة لكل بند وستُحسب النسبة والتصنيف فوراً.</p>
+  <div class="sheet">
+    <div class="meta">
+      <div><label>اسم المعلم</label><input placeholder="…"></div>
+      <div><label>المادة</label><input placeholder="…"></div>
+      <div><label>الصف</label><input placeholder="…"></div>
+      <div><label>التاريخ</label><input type="date"></div>
+    </div>
+    <div id="rows"></div>
+    <div class="key"><span>1 = غير موجود</span><span>2 = بداية</span><span>3 = متحقق</span><span>4 = متميّز</span><span>النسبة = المجموع ÷ 40 × 100</span></div>
+    <div class="result">
+      <div class="ring" id="ring"><div id="pct">0%</div></div>
+      <div><h3>نسبة الأداء <span id="sum" style="font-weight:400;color:#b9c9ee"></span></h3><p id="note">قيّم البنود لعرض النتيجة.</p><span class="grade" id="grade">—</span></div>
+      <button class="reset" onclick="resetForm()">مسح</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="classes" style="background:var(--card);border-block:1px solid var(--line)"><div class="wrap">
+  <h2>توحيد حدود التصنيف</h2>
+  <p class="sub">الملفان يستخدمان حدوداً مختلفة، فقد يكون المعلم نفسه «ممتازاً» في ملف و«B» في الآخر.</p>
+  <table>
+    <tr><th>المستوى</th><th>ملف التصنيف</th><th>سجل الإشراف</th></tr>
+    <tr><td>الأعلى</td><td>A: من 90 إلى 100</td><td>ممتاز: من 85</td></tr>
+    <tr><td>الأوسط</td><td>B: من 80 إلى 89</td><td>متوسط: من 70 إلى 84</td></tr>
+    <tr><td>الأدنى</td><td>C: أقل من 80</td><td>ضعيف: أقل من 70</td></tr>
+  </table>
+  <p class="sub" style="margin-top:16px"><b>الاقتراح:</b> اعتماد حدود واحدة للملفين تحددها الإدارة. (الحدود في النموذج أعلاه افتراضية: A ≥ 90، B ≥ 80، وإلا C.)</p>
+</div></section>
+
+<section id="pitch"><div class="wrap">
+  <div class="quote">«ملفاتنا الحالية تقيس الأداء العام، لكنها لا تقيس تطبيق الـ IB. أقترح إضافة بسيطة داخل نفس الملف تجعل كل زيارة دليلاً على تطبيق معايير الـ IB.»</div>
+</div></section>
+
+<footer><div class="wrap"><img src="assets/logo-white.png" alt="مدارس المنهل"><p>مدارس المنهل · American Diploma</p></div></footer>
+
+<script>
+const items=[
+["عبارة الاستقصاء (Statement of Inquiry)","ظاهرة في الصف ويرجع إليها المعلم والطلاب"],
+["السياق العالمي (Global Context)","مفعَّل في النشاط، لا مكتوب في الخطة فقط"],
+["المفهوم الرئيسي والمفاهيم المرتبطة","واضحة ومرتبطة بالدرس"],
+["مهارات ATL","مهارة محددة تُدرَّس بشكل صريح ويعرفها الطلاب"],
+["التعلّم بالاستقصاء","أسئلة وبحث وتفكير، لا تلقين"],
+["معايير التقييم (A/B/C/D)","يعرف الطلاب المعيار المرتبط بالمهمة"],
+["صفات المتعلّم (Learner Profile)","حاضرة في الحوار والنشاط"],
+["التمايز (Differentiation)","مهام أو دعم مناسب لمستويات الطلاب"],
+["التأمّل (Reflection)","فرصة للطلاب للتأمل في تعلّمهم"],
+["مطابقة خطة الوحدة (Unit Planner)","الحصة منسجمة مع الخطة المرفوعة على Classera"]];
+const rows=document.getElementById("rows");
+items.forEach((it,i)=>{
+  rows.insertAdjacentHTML("beforeend",`<div class="row"><div class="num">${i+1}</div><div><h4>${it[0]}</h4><small>${it[1]}</small></div><div class="scale">${
+  [1,2,3,4].map(v=>`<input type="radio" name="q${i}" id="q${i}_${v}" value="${v}"><label for="q${i}_${v}">${v}</label>`).join("")}</div></div>`);
+});
+function calc(){
+  let s=0,n=0;
+  items.forEach((_,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);if(c){s+=+c.value;n++}});
+  const p=Math.round(s/40*100);
+  document.getElementById("pct").textContent=p+"%";
+  document.getElementById("ring").style.setProperty("--p",p);
+  document.getElementById("sum").textContent=`(${s} / 40)`;
+  const g=n<10?"—":p>=90?"A":p>=80?"B":"C";
+  document.getElementById("grade").textContent=n<10?"—":"التصنيف "+g;
+  document.getElementById("note").textContent=n<10?`تم تقييم ${n} من 10 بنود.`:"اكتملت جميع البنود.";
+}
+rows.addEventListener("change",calc);
+function resetForm(){document.querySelectorAll("#rows input").forEach(i=>i.checked=false);calc()}
+</script>
+</body>
+</html>
