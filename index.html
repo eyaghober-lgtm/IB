@@ -84,6 +84,15 @@ table{width:100%;border-collapse:collapse;background:var(--card);border-radius:v
 th,td{padding:14px 18px;text-align:right;border-bottom:1px solid var(--line)}
 th{background:var(--navy);color:#fff;font-weight:600}
 tr:last-child td{border-bottom:0}
+.meta select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit}
+.acts{display:flex;gap:12px;padding:20px;flex-wrap:wrap}
+.btn.o{background:transparent;color:var(--teal);border:1px solid var(--teal)}
+.fb{padding:24px 20px;border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(76,195,232,.08),transparent)}
+.fb h3{margin:14px 0 6px}.fb ul{padding-inline-start:20px;color:var(--muted)}.fb li{margin-bottom:4px}
+.bar{display:grid;grid-template-columns:minmax(120px,240px) 1fr 44px;gap:10px;align-items:center;margin:6px 0;font-size:.9rem}
+.bar i{display:block;height:10px;border-radius:99px;background:var(--line);overflow:hidden}.bar i b{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--teal))}
+.bar.weak i b{background:var(--low)}
+.del{background:none;border:0;color:var(--low);cursor:pointer;font-family:inherit}
 .quote{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:var(--r);padding:40px;font-size:1.25rem;line-height:2;position:relative}
 .quote::before{content:"“";position:absolute;top:-6px;right:24px;font-size:6rem;color:var(--sky);opacity:.5}
 footer{background:var(--navy);color:#b9c9ee;padding:36px 0;text-align:center}
@@ -94,7 +103,7 @@ footer img{height:56px;margin-bottom:10px}
 <body>
 <nav><div class="wrap">
   <img src="assets/logo.png" alt="مدارس المنهل">
-  <ul><li><a href="#gap">الوضع الحالي</a></li><li><a href="#idea">الفكرة</a></li><li><a href="#form">الاستمارة</a></li><li><a href="#classes">التصنيف</a></li></ul>
+  <ul><li><a href="#gap">الوضع الحالي</a></li><li><a href="#idea">الفكرة</a></li><li><a href="#form">الاستمارة</a></li><li><a href="#log">السجل</a></li><li><a href="#classes">التصنيف</a></li></ul>
 </div></nav>
 
 <header class="hero"><div class="wrap">
@@ -135,10 +144,11 @@ footer img{height:56px;margin-bottom:10px}
   <p class="sub">نموذج تفاعلي: اختر الدرجة لكل بند وستُحسب النسبة والتصنيف فوراً.</p>
   <div class="sheet">
     <div class="meta">
-      <div><label>اسم المعلم</label><input placeholder="…"></div>
-      <div><label>المادة</label><input placeholder="…"></div>
-      <div><label>الصف</label><input placeholder="…"></div>
-      <div><label>التاريخ</label><input type="date"></div>
+      <div><label>المشرف / الزائر</label><select id="sup"></select></div>
+      <div><label>اسم المعلم</label><select id="tch"></select></div>
+      <div><label>المادة</label><select id="sub"></select></div>
+      <div><label>الصف</label><input id="cls" placeholder="مثال: 7A"></div>
+      <div><label>التاريخ</label><input id="dt" type="date"></div>
     </div>
     <div id="rows"></div>
     <div class="key"><span>1 = غير موجود</span><span>2 = بداية</span><span>3 = متحقق</span><span>4 = متميّز</span><span>النسبة = المجموع ÷ 40 × 100</span></div>
@@ -147,7 +157,17 @@ footer img{height:56px;margin-bottom:10px}
       <div><h3>نسبة الأداء <span id="sum" style="font-weight:400;color:#b9c9ee"></span></h3><p id="note">قيّم البنود لعرض النتيجة.</p><span class="grade" id="grade">—</span></div>
       <button class="reset" onclick="resetForm()">مسح</button>
     </div>
+    <div class="fb" id="fb" hidden></div>
+    <div class="acts"><button class="btn p" onclick="saveVisit()">حفظ الزيارة وإصدار التغذية الراجعة</button><button class="btn o" onclick="window.print()">طباعة / PDF</button></div>
   </div>
+</div></section>
+
+<section id="log" style="background:var(--card);border-block:1px solid var(--line)"><div class="wrap">
+  <h2>سجل الزيارات ولوحة المؤشرات</h2>
+  <p class="sub">تُحفظ الزيارات في هذا المتصفح (على هذا الجهاز فقط). صدّرها إلى Excel/CSV لدمجها في سجل الإشراف.</p>
+  <div class="card" style="margin-bottom:18px"><h3>متوسط كل بند IB في المدرسة</h3><div id="dash"><p>لا توجد زيارات محفوظة بعد.</p></div></div>
+  <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="acts" style="padding:18px 0 0"><button class="btn p" onclick="exportCsv()">تصدير CSV</button><button class="btn o" onclick="clearAll()">حذف كل الزيارات</button></div>
 </div></section>
 
 <section id="classes" style="background:var(--card);border-block:1px solid var(--line)"><div class="wrap">
@@ -197,7 +217,63 @@ function calc(){
   document.getElementById("note").textContent=n<10?`تم تقييم ${n} من 10 بنود.`:"اكتملت جميع البنود.";
 }
 rows.addEventListener("change",calc);
-function resetForm(){document.querySelectorAll("#rows input").forEach(i=>i.checked=false);calc()}
+function resetForm(){document.querySelectorAll("#rows input").forEach(i=>i.checked=false);document.getElementById("fb").hidden=true;calc()}
+
+/* ---------- lists (editable, stored in browser) ---------- */
+const ADD="➕ إضافة جديد…";
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const lists={sup:store.get("ib_sup",["رئيس التدقيق","نائب المدير"]),tch:store.get("ib_tch",[]),sub:store.get("ib_sub",["اللغة العربية","اللغة الإنجليزية","الرياضيات","العلوم","الدراسات الاجتماعية","التصميم","الفنون","التربية البدنية"])};
+function fillSel(id){const s=document.getElementById(id),cur=s.value;
+  s.innerHTML=`<option value="">— اختر —</option>`+lists[id].map(x=>`<option>${x}</option>`).join("")+`<option value="__add">${ADD}</option>`;
+  if(cur&&lists[id].includes(cur))s.value=cur}
+["sup","tch","sub"].forEach(id=>{fillSel(id);document.getElementById(id).addEventListener("change",e=>{
+  if(e.target.value!=="__add")return;
+  const v=(prompt("اكتب الاسم:")||"").trim();
+  if(v&&!lists[id].includes(v)){lists[id].push(v);store.set("ib_"+id,lists[id])}
+  fillSel(id);e.target.value=v&&lists[id].includes(v)?v:""})});
+document.getElementById("dt").valueAsDate=new Date();
+
+/* ---------- feedback ---------- */
+const tips=["اربط كل حصة بعبارة الاستقصاء واطلب من الطلاب الرجوع إليها.","فعّل السياق العالمي داخل النشاط نفسه لا في الخطة فقط.","وضّح المفهوم الرئيسي والمفاهيم المرتبطة في بداية الدرس.","درّس مهارة ATL واحدة بشكل صريح وسمِّها للطلاب.","استبدل التلقين بأسئلة وبحث وتفكير موجَّه.","اعرض معيار التقييم المرتبط بالمهمة وناقشه مع الطلاب.","اربط صفات المتعلّم بالحوار والنشاط بأمثلة محددة.","وفّر مهام أو دعماً مناسباً لمستويات الطلاب المختلفة.","خصّص وقتاً لتأمل الطلاب في تعلّمهم.","تأكد من انسجام الحصة مع خطة الوحدة المرفوعة على Classera."];
+const lvl=["","غير موجود","بداية","متحقق","متميّز"];
+function current(){
+  const sc=items.map((_,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);return c?+c.value:0});
+  const sum=sc.reduce((a,b)=>a+b,0),pct=Math.round(sum/40*100);
+  return{date:document.getElementById("dt").value,sup:sup.value,tch:tch.value,sub:sub.value,cls:cls.value,sc,sum,pct,grade:pct>=90?"A":pct>=80?"B":"C"}}
+function feedbackHtml(v){
+  const strong=v.sc.map((s,i)=>[s,i]).filter(x=>x[0]>=3),weak=v.sc.map((s,i)=>[s,i]).filter(x=>x[0]<=2);
+  return `<h3 style="margin-top:0">التغذية الراجعة النهائية</h3>
+  <p><b>${v.tch||"—"}</b> · ${v.sub||"—"} · ${v.cls||"—"} · ${v.date||""}<br>المشرف: ${v.sup||"—"}</p>
+  <p>نسبة الأداء <b>${v.pct}%</b> (${v.sum}/40) — التصنيف <b>${v.grade}</b></p>
+  <h3>نقاط القوة</h3><ul>${strong.length?strong.map(x=>`<li>${items[x[1]][0]} — ${lvl[x[0]]}</li>`).join(""):"<li>لا توجد بنود بدرجة 3 أو أعلى.</li>"}</ul>
+  <h3>مجالات التطوير والتوصيات</h3><ul>${weak.length?weak.map(x=>`<li><b>${items[x[1]][0]}</b> (${lvl[x[0]]}): ${tips[x[1]]}</li>`).join(""):"<li>جميع البنود متحققة أو متميّزة. استمر.</li>"}</ul>`}
+function saveVisit(){
+  const v=current();
+  if(v.sc.includes(0)){alert("أكمل تقييم جميع البنود العشرة أولاً.");return}
+  if(!v.tch){alert("اختر المعلم.");return}
+  const all=store.get("ib_visits",[]);all.push(v);store.set("ib_visits",all);
+  const fb=document.getElementById("fb");fb.innerHTML=feedbackHtml(v);fb.hidden=false;fb.scrollIntoView({behavior:"smooth",block:"nearest"});
+  render()}
+
+/* ---------- log + dashboard ---------- */
+function render(){
+  const all=store.get("ib_visits",[]);
+  document.querySelector("#logt tbody").innerHTML=all.map((v,i)=>`<tr><td>${v.date}</td><td>${v.tch}</td><td>${v.sub}</td><td>${v.cls}</td><td>${v.sup}</td><td>${v.pct}%</td><td>${v.grade}</td><td><button class="del" onclick="delVisit(${i})">حذف</button></td></tr>`).join("")||`<tr><td colspan="8">لا توجد زيارات.</td></tr>`;
+  const d=document.getElementById("dash");
+  if(!all.length){d.innerHTML="<p>لا توجد زيارات محفوظة بعد.</p>";return}
+  const avg=items.map((_,i)=>all.reduce((a,v)=>a+v.sc[i],0)/all.length);
+  const min=Math.min(...avg);
+  d.innerHTML=avg.map((a,i)=>`<div class="bar ${a===min?"weak":""}"><span>${items[i][0].split(" (")[0]}</span><i><b style="width:${a/4*100}%"></b></i><span>${a.toFixed(1)}</span></div>`).join("")+
+   `<p style="margin-top:10px"><b>أضعف بند IB في المدرسة:</b> ${items[avg.indexOf(min)][0]} — موضوع مقترح للورشة القادمة.</p>`}
+function delVisit(i){const a=store.get("ib_visits",[]);a.splice(i,1);store.set("ib_visits",a);render()}
+function clearAll(){if(confirm("حذف كل الزيارات المحفوظة؟")){store.set("ib_visits",[]);render()}}
+function exportCsv(){
+  const all=store.get("ib_visits",[]);if(!all.length)return;
+  const head=["التاريخ","المعلم","المادة","الصف","المشرف",...items.map(i=>i[0]),"المجموع","النسبة","التصنيف"];
+  const q=s=>`"${String(s).replace(/"/g,'""')}"`;
+  const csv="﻿"+[head,...all.map(v=>[v.date,v.tch,v.sub,v.cls,v.sup,...v.sc,v.sum,v.pct+"%",v.grade])].map(r=>r.map(q).join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="ib-observations.csv";a.click()}
+render();
 </script>
 </body>
 </html>
