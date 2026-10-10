@@ -34,14 +34,16 @@
       <div class="mring" id="ring"><div id="pct">0%</div></div>
       <div class="cinfo"><b>نسبة الأداء <span id="sum"></span><span class="cgrade" id="grade" style="display:none"></span></b><span id="note">قيّم البنود لعرض النتيجة</span></div>
       <button class="btn g sm" onclick="resetForm()">مسح</button>
+      <button class="btn g sm" onclick="printReport()" title="تقرير بتصميم المدرسة جاهز للطباعة أو الحفظ كـ PDF">⬇ PDF</button>
       <button class="btn p sm" onclick="saveVisit()">حفظ وإصدار التغذية الراجعة</button>
     </div>
     <details class="cextra"><summary>ملف المعلم في الـ IB (مخطط)</summary>
       <div class="inner"><div id="radar"></div><p>يتحدّث مباشرة أثناء التقييم: المساحة الصغيرة تعني بنوداً تحتاج دعماً.</p></div></details>
     <div class="fb" id="fb" hidden></div>
   </div>
-  <p class="ckey" style="padding:10px 4px;background:none"><span>تُحفظ الزيارات في هذا المتصفح فقط.</span><span><a href="log.html" style="color:var(--teal)">فتح السجل</a></span><span><a href="javascript:window.print()" style="color:var(--teal)">طباعة / PDF</a></span></p>
+  <p class="ckey" style="padding:10px 4px;background:none"><span>تُحفظ الزيارات في هذا المتصفح فقط.</span><span><a href="log.html" style="color:var(--teal)">فتح السجل</a></span><span><a href="javascript:printReport()" style="color:var(--teal)">تصدير PDF</a></span></p>
 </main>
+<section id="report" aria-hidden="true"></section>
 <script src="assets/common.js"></script>
 <script src="assets/form.js"></script>
 </body>

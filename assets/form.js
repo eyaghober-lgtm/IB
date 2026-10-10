@@ -42,7 +42,7 @@ function feedbackHtml(v){
   <p>نسبة الأداء <b>${v.pct}%</b> (${v.sum}/40) — التصنيف <b>${v.grade}</b></p>
   <h3>نقاط القوة</h3><ul>${strong.length?strong.map(x=>`<li>${items[x[1]][0]} — ${lvl[x[0]]}</li>`).join(""):"<li>لا توجد بنود بدرجة 3 أو أعلى.</li>"}</ul>
   <h3>مجالات التطوير والتوصيات</h3><ul>${weak.length?weak.map(x=>`<li><b>${items[x[1]][0]}</b> (${lvl[x[0]]}): ${tips[x[1]]}</li>`).join(""):"<li>جميع البنود متحققة أو متميّزة. استمر.</li>"}</ul>
-  <div class="saved">✓ تم حفظ الزيارة <a href="log.html">عرض السجل ←</a></div>`}
+  <div class="saved">✓ تم حفظ الزيارة <a href="log.html">عرض السجل ←</a> <a href="javascript:printReport()">⬇ تصدير PDF</a></div>`}
 function saveVisit(){
   const sc=scores();
   if(sc.includes(0)){alert("أكمل تقييم جميع البنود العشرة أولاً.");return}
@@ -52,3 +52,25 @@ function saveVisit(){
   const all=store.get("ib_visits",[]);all.push(v);store.set("ib_visits",all);
   const fb=document.getElementById("fb");fb.innerHTML=feedbackHtml(v);fb.hidden=false;fb.scrollIntoView({behavior:"smooth",block:"nearest"})}
 calc();
+
+/* ---------- PDF report: a branded A4 page built from the form, shown only when printing ---------- */
+function buildReport(){
+  const sc=scores(),n=sc.filter(Boolean).length,sum=sc.reduce((a,b)=>a+b,0),pct=Math.round(sum/40*100),g=id=>document.getElementById(id).value||"—";
+  const strong=sc.map((s,i)=>[s,i]).filter(x=>x[0]>=3),weak=sc.map((s,i)=>[s,i]).filter(x=>x[0]>0&&x[0]<=2);
+  const when=new Date().toLocaleDateString("ar",{year:"numeric",month:"long",day:"numeric"});
+  document.getElementById("report").innerHTML=`
+  <div class="rp-head"><img src="assets/logo-white.png" alt=""><div><h1>تقرير زيارة صفية IB</h1><small>IB Classroom Observation · مدارس المنهل</small></div></div>
+  <div class="rp-meta"><div><span>المعلم</span><b>${g("tch")}</b></div><div><span>الفرع</span><b>${g("br")}</b></div><div><span>المادة</span><b>${g("sub")}</b></div>
+    <div><span>الصف</span><b>${g("cls")}</b></div><div><span>المشرف / الزائر</span><b>${g("sup")}</b></div><div><span>تاريخ الزيارة</span><b>${g("dt")}</b></div></div>
+  <div class="rp-score"><div class="rp-ring" style="--p:${pct}"><div>${pct}%</div></div>
+    <div><b style="font-size:13pt">نسبة الأداء</b>${n===10?`<span class="rp-grade">التصنيف ${gradeOf(pct)}</span>`:""}<p>المجموع ${sum} من 40 · ${n===10?"اكتملت جميع البنود":`تم تقييم ${n} من 10 بنود`}</p><p>النسبة = المجموع ÷ 40 × 100 · 1 غير موجود · 2 بداية · 3 متحقق · 4 متميّز</p></div></div>
+  <div class="rp-title">تفصيل البنود</div>
+  <table class="rp-items">${items.map((it,i)=>`<tr class="${sc[i]&&sc[i]<=2?"low":""}"><td>${i+1}</td><td>${it[0]}</td><td style="width:34%"><span class="bar"><i style="width:${sc[i]/4*100}%"></i></span></td><td style="width:92px;white-space:nowrap"><b>${sc[i]||"—"}</b> ${lvl[sc[i]]||""}</td></tr>`).join("")}</table>
+  <div class="rp-cols"><div><div class="rp-title">نقاط القوة</div><ul>${strong.length?strong.map(x=>`<li>${short(x[1])}</li>`).join(""):"<li>—</li>"}</ul></div>
+    <div><div class="rp-title">مجالات التطوير والتوصيات</div><ul>${weak.length?weak.map(x=>`<li><b>${short(x[1])}:</b> ${tips[x[1]]}</li>`).join(""):"<li>لا توجد بنود تحتاج تطويراً.</li>"}</ul></div></div>
+  <div class="rp-sign"><div>المشرف / الزائر</div><div>المعلم</div><div>الإدارة</div></div>
+  <div class="rp-foot">مدارس المنهل · American Diploma · صدر بتاريخ ${when}</div>`}
+function printReport(){
+  if(scores().includes(0)){alert("أكمل تقييم جميع البنود العشرة أولاً.");return}
+  buildReport();window.print()}
+window.addEventListener("beforeprint",buildReport);
