@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>إعداد القوائم | مدارس المنهل</title>
 <link rel="icon" href="assets/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b1f4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IB المنهل">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -173,5 +180,6 @@ document.getElementById("imp").onchange=e=>{
   f.text().then(t=>{try{const d=JSON.parse(t);["sup","tch","sub","br"].forEach(k=>{if(Array.isArray(d[k]))L[k]=d[k]});meta=d.meta||{};if(Array.isArray(d.visits))store.set("ib_visits",d.visits);save();build();toast("تم الاستيراد ✓")}catch(x){toast("ملف غير صالح")}})};
 build();
 </script>
+<script src="assets/pwa.js"></script>
 </body>
 </html>

@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>سجل الزيارات ولوحة المؤشرات | مدارس المنهل</title>
 <link rel="icon" href="assets/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b1f4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IB المنهل">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +26,7 @@
 <main class="lwrap">
   <h1>سجل الزيارات ولوحة المؤشرات</h1>
   <p class="sub">تُحفظ الزيارات في هذا المتصفح (على هذا الجهاز فقط). صدّرها إلى Excel/CSV لدمجها في سجل الإشراف.</p>
-  <div class="acts"><a class="btn p sm" href="form.html">+ زيارة جديدة</a><button class="btn o sm" onclick="loadDemo()">تحميل بيانات تجريبية (12 زيارة)</button><span class="count" id="cnt" hidden></span></div>
+  <div class="acts"><a class="btn p sm" href="form.html">+ زيارة جديدة</a><button class="btn o sm" onclick="loadDemo()">تحميل بيانات تجريبية (12 زيارة)</button><span class="count" id="cnt" hidden></span><button class="btn o sm" data-install>📲 أضِف إلى الشاشة الرئيسية</button></div>
 
   <div class="card empty" id="empty" hidden>
     <div class="ico">📋</div>
@@ -44,5 +51,6 @@
 </main>
 <script src="assets/common.js"></script>
 <script src="assets/log.js"></script>
+<script src="assets/pwa.js"></script>
 </body>
 </html>

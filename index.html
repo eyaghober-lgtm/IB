@@ -6,6 +6,13 @@
 <title>استمارة زيارة صفية IB | مدارس المنهل</title>
 <meta name="description" content="مقترح إضافة استمارة زيارة صفية IB داخل سجل الإشراف: 10 بنود، مقياس 1–4، نسبة أداء تلقائية.">
 <link rel="icon" href="assets/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b1f4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IB المنهل">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +29,7 @@
   <div><span class="tag">مقترح · برنامج السنوات المتوسطة MYP</span></div>
   <h1>استمارة زيارة صفية <span>IB</span> داخل سجل الإشراف</h1>
   <p>ملفاتنا الحالية تقيس الأداء العام، لكنها لا تقيس تطبيق الـ IB. إضافة بسيطة داخل نفس الملف تجعل كل زيارة دليلاً على تطبيق معايير الـ IB.</p>
-  <div class="btns"><a class="btn p" href="form.html">افتح الاستمارة</a><a class="btn g" href="#idea">اعرف الفكرة</a></div>
+  <div class="btns"><a class="btn p" href="form.html">افتح الاستمارة</a><a class="btn g" href="#idea">اعرف الفكرة</a><button class="btn g" data-install>📲 أضِف إلى الشاشة الرئيسية</button></div>
 </div></header>
 
 <section id="gap"><div class="wrap">
@@ -93,7 +100,7 @@
 
 <section id="pitch"><div class="wrap">
   <div class="quote">«ملفاتنا الحالية تقيس الأداء العام، لكنها لا تقيس تطبيق الـ IB. أقترح إضافة بسيطة داخل نفس الملف تجعل كل زيارة دليلاً على تطبيق معايير الـ IB.»</div>
-<div class="btns" style="justify-content:center;margin-top:26px"><a class="btn p" href="form.html" style="background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff">افتح الاستمارة</a><a class="btn o" href="log.html">السجل ولوحة المؤشرات</a><a class="btn o" href="setup.html">⚙ إدارة القوائم</a></div>
+<div class="btns" style="justify-content:center;margin-top:26px"><a class="btn p" href="form.html" style="background:linear-gradient(135deg,var(--sky),var(--teal));color:#fff">افتح الاستمارة</a><a class="btn o" href="log.html">السجل ولوحة المؤشرات</a><a class="btn o" href="setup.html">⚙ إدارة القوائم</a><button class="btn o" data-install>📲 أضِف إلى الشاشة الرئيسية</button></div>
 </div></section>
 
 <footer><div class="wrap"><img src="assets/logo-white.png" alt="مدارس المنهل"><p>مدارس المنهل · American Diploma</p></div></footer>
@@ -124,5 +131,6 @@ function thr(){
 aR.oninput=bR.oninput=thr;thr();
 
 </script>
+<script src="assets/pwa.js"></script>
 </body>
 </html>

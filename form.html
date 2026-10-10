@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>استمارة الزيارة الصفية IB | مدارس المنهل</title>
 <link rel="icon" href="assets/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b1f4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IB المنهل">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,10 +48,11 @@
       <div class="inner"><div id="radar"></div><p>يتحدّث مباشرة أثناء التقييم: المساحة الصغيرة تعني بنوداً تحتاج دعماً.</p></div></details>
     <div class="fb" id="fb" hidden></div>
   </div>
-  <p class="ckey" style="padding:10px 4px;background:none"><span>تُحفظ الزيارات في هذا المتصفح فقط.</span><span><a href="log.html" style="color:var(--teal)">فتح السجل</a></span><span><a href="javascript:printReport()" style="color:var(--teal)">تصدير PDF</a></span></p>
+  <p class="ckey" style="padding:10px 4px;background:none"><span>تُحفظ الزيارات في هذا المتصفح فقط.</span><span><a href="log.html" style="color:var(--teal)">فتح السجل</a></span><span><a href="javascript:printReport()" style="color:var(--teal)">تصدير PDF</a></span><span><a href="#" data-install style="color:var(--teal)">📲 أضِف إلى الشاشة الرئيسية</a></span></p>
 </main>
 <section id="report" aria-hidden="true"></section>
 <script src="assets/common.js"></script>
 <script src="assets/form.js"></script>
+<script src="assets/pwa.js"></script>
 </body>
 </html>
