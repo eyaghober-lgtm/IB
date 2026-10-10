@@ -185,29 +185,30 @@ nav a.cta:hover{transform:translateY(-2px) scale(1.05)}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff}
   body>*:not(#report){display:none!important}
-  #report{display:block;color:#0f1b3a;font-size:11pt;line-height:1.55}
-  .rp-head{display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(135deg,#0b1f4d,#142c6b);color:#fff;padding:14px 18px;border-radius:12px}
-  .rp-head img{height:54px}
-  .rp-head h1{font-size:17pt;margin:0;text-align:left}
+  html,body{margin:0!important;padding:0!important;height:auto!important}
+  #report{display:block;color:#0f1b3a;font-size:10.5pt;line-height:1.45;break-after:avoid;page-break-after:avoid}
+  .rp-head{display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(135deg,#0b1f4d,#142c6b);color:#fff;padding:9px 16px;border-radius:12px}
+  .rp-head img{height:44px}
+  .rp-head h1{font-size:15pt;margin:0;text-align:left}
   .rp-head small{display:block;color:#9fd8ee;font-weight:400;font-size:9.5pt;margin-top:2px}
-  .rp-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 12px;margin:12px 0;padding:10px 14px;border:1px solid #dbe5f2;border-radius:10px;background:#f6f9fd}
+  .rp-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 12px;margin:8px 0;padding:7px 12px;border:1px solid #dbe5f2;border-radius:10px;background:#f6f9fd}
   .rp-meta span{display:block;font-size:8.5pt;color:#5b6785}.rp-meta b{font-size:10.5pt}
-  .rp-score{display:flex;align-items:center;gap:18px;margin:10px 0 12px}
-  .rp-ring{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#1fa9c9 calc(var(--p)*1%),#e1e8f2 0)}
-  .rp-ring div{width:70px;height:70px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:17pt;font-weight:700;color:#0b1f4d}
+  .rp-score{display:flex;align-items:center;gap:16px;margin:6px 0 6px}
+  .rp-ring{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#1fa9c9 calc(var(--p)*1%),#e1e8f2 0)}
+  .rp-ring div{width:60px;height:60px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:14pt;font-weight:700;color:#0b1f4d}
   .rp-grade{display:inline-block;padding:2px 16px;border-radius:99px;background:#0b1f4d;color:#fff;font-weight:700;margin-inline-start:8px}
-  .rp-score p{margin:2px 0;color:#5b6785;font-size:10pt}
-  .rp-title{font-size:11.5pt;font-weight:700;margin:12px 0 6px;padding-bottom:3px;border-bottom:2px solid #4cc3e8;color:#0b1f4d}
+  .rp-score p{margin:1px 0;color:#5b6785;font-size:9pt}
+  .rp-title{font-size:11pt;font-weight:700;margin:8px 0 4px;padding-bottom:3px;border-bottom:2px solid #4cc3e8;color:#0b1f4d}
   .rp-items{width:100%;border-collapse:collapse;font-size:9.5pt;border:0;border-radius:0}
-  .rp-items td{padding:4px 6px;border-bottom:1px solid #e8eef6;vertical-align:middle;text-align:right;background:none}
+  .rp-items td{padding:2px 6px;border-bottom:1px solid #e8eef6;vertical-align:middle;text-align:right;background:none}
   .rp-items td:first-child{width:22px;color:#fff;background:#0b1f4d;text-align:center;font-weight:700;border-radius:4px}
   .rp-items .bar{display:block;height:8px;border-radius:99px;background:#e1e8f2;overflow:hidden;margin:0}
   .rp-items .bar i{display:block;height:100%;background:linear-gradient(90deg,#4cc3e8,#1fa9c9)}
   .rp-items .low .bar i{background:#e5484d}
   .rp-items tr{break-inside:avoid}
   .rp-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;break-inside:avoid}
-  .rp-cols ul{margin:0;padding-inline-start:18px;font-size:9.5pt}.rp-cols li{margin-bottom:3px}
-  .rp-sign{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px;break-inside:avoid}
+  .rp-cols ul{margin:0;padding-inline-start:16px;font-size:9pt;line-height:1.4}.rp-cols li{margin-bottom:1px}
+  .rp-sign{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px;break-inside:avoid}
   .rp-sign div{border-top:1px solid #0b1f4d;padding-top:4px;text-align:center;font-size:9.5pt;color:#5b6785}
-  .rp-foot{margin-top:14px;padding-top:6px;border-top:1px solid #dbe5f2;text-align:center;font-size:8.5pt;color:#5b6785}
+  .rp-foot{margin-top:8px;padding-top:6px;border-top:1px solid #dbe5f2;text-align:center;font-size:8.5pt;color:#5b6785}
 }
