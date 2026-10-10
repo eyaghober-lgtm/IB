@@ -1,6 +1,10 @@
 /* Records page: table, school-wide dashboard, readiness, workshops, CSV export, demo data. */
 function render(){
   const all=store.get("ib_visits",[]);
+  document.getElementById("empty").hidden=all.length>0;
+  document.getElementById("panels").hidden=all.length===0;
+  const cnt=document.getElementById("cnt");cnt.hidden=all.length===0;cnt.textContent=all.length+" زيارة محفوظة";
+  if(!all.length)return;
   document.querySelector("#logt tbody").innerHTML=all.map((v,i)=>`<tr><td>${v.date}</td><td>${v.tch}</td><td>${v.br||""}</td><td>${v.sub}</td><td>${v.cls}</td><td>${v.sup}</td><td>${v.pct}%</td><td>${v.grade}</td><td><button class="del" onclick="delVisit(${i})">حذف</button></td></tr>`).join("")||`<tr><td colspan="9">لا توجد زيارات.</td></tr>`;
   const D=document.getElementById("dash"),R=document.getElementById("ready"),W=document.getElementById("ws");
   if(!all.length){D.innerHTML="<p>لا توجد زيارات محفوظة بعد.</p>";R.innerHTML="<p>لا توجد زيارات محفوظة بعد.</p>";W.innerHTML="<p>تظهر بعد حفظ الزيارات.</p>";return}

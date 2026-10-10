@@ -19,16 +19,28 @@
 <main class="lwrap">
   <h1>سجل الزيارات ولوحة المؤشرات</h1>
   <p class="sub">تُحفظ الزيارات في هذا المتصفح (على هذا الجهاز فقط). صدّرها إلى Excel/CSV لدمجها في سجل الإشراف.</p>
-  <div class="acts"><a class="btn p sm" href="form.html">+ زيارة جديدة</a><button class="btn o sm" onclick="loadDemo()">تحميل بيانات تجريبية (12 زيارة)</button></div>
-  <div class="grid g2">
-    <div class="card"><h3>متوسط كل بند IB في المدرسة</h3><div id="dash"></div></div>
-    <div class="card"><h3>الجاهزية لزيارة التصريح (Authorization Visit)</h3><div id="ready"></div></div>
+  <div class="acts"><a class="btn p sm" href="form.html">+ زيارة جديدة</a><button class="btn o sm" onclick="loadDemo()">تحميل بيانات تجريبية (12 زيارة)</button><span class="count" id="cnt" hidden></span></div>
+
+  <div class="card empty" id="empty" hidden>
+    <div class="ico">📋</div>
+    <h3>لا توجد زيارات محفوظة بعد</h3>
+    <p style="color:var(--muted)">هذه الصفحة تجمع كل الزيارات التي تحفظها من الاستمارة، وتحوّلها تلقائياً إلى:</p>
+    <ol><li>متوسط كل بند IB في المدرسة وأضعف بند</li><li>نسبة الجاهزية لزيارة التصريح وفجواتها</li><li>الورش المقترحة حسب الحاجة الفعلية</li><li>جدول الزيارات مع تصدير CSV</li></ol>
+    <div class="acts"><a class="btn p sm" href="form.html">افتح الاستمارة وسجّل أول زيارة</a><button class="btn o sm" onclick="loadDemo()">جرّب ببيانات تجريبية</button></div>
+    <p class="note">تُحفظ الزيارات في هذا المتصفح وعلى هذا العنوان فقط. إذا سجّلت زيارة من عنوان آخر (مثل github.io بدل vercel.app) أو من نافذة خاصة، فلن تظهر هنا.</p>
   </div>
-  <div class="card"><h3>الورش المقترحة تلقائياً</h3><div id="ws"></div></div>
-  <div class="card"><h3>خطة التجربة المقترحة (شهر واحد)</h3>
-    <div class="grid g4"><div><b>الأسبوع 1</b><p>اعتماد الاستمارة وتدريب المشرفين على المقياس 1–4.</p></div><div><b>الأسبوع 2</b><p>زيارات تجريبية في صف واحد (3–4 معلمين).</p></div><div><b>الأسبوع 3</b><p>مراجعة اللوحة وتحديد أضعف بند وورشة علاجية.</p></div><div><b>الأسبوع 4</b><p>تقييم التجربة ثم قرار التعميم على بقية الصفوف.</p></div></div></div>
-  <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>الفرع</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
-  <div class="acts" style="padding:16px 0 0"><button class="btn p sm" onclick="exportCsv()">تصدير CSV</button><button class="btn o sm" onclick="clearAll()">حذف كل الزيارات</button></div>
+
+  <div id="panels" hidden>
+    <div class="grid g2">
+      <div class="card"><h3>متوسط كل بند IB في المدرسة</h3><div id="dash"></div></div>
+      <div class="card"><h3>الجاهزية لزيارة التصريح (Authorization Visit)</h3><div id="ready"></div></div>
+    </div>
+    <div class="card"><h3>الورش المقترحة تلقائياً</h3><div id="ws"></div></div>
+    <div class="card"><h3>خطة التجربة المقترحة (شهر واحد)</h3>
+      <div class="grid g4"><div><b>الأسبوع 1</b><p>اعتماد الاستمارة وتدريب المشرفين على المقياس 1–4.</p></div><div><b>الأسبوع 2</b><p>زيارات تجريبية في صف واحد (3–4 معلمين).</p></div><div><b>الأسبوع 3</b><p>مراجعة اللوحة وتحديد أضعف بند وورشة علاجية.</p></div><div><b>الأسبوع 4</b><p>تقييم التجربة ثم قرار التعميم على بقية الصفوف.</p></div></div></div>
+    <div style="overflow:auto"><table id="logt"><thead><tr><th>التاريخ</th><th>المعلم</th><th>الفرع</th><th>المادة</th><th>الصف</th><th>المشرف</th><th>النسبة</th><th>التصنيف</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="acts" style="padding:16px 0 0"><button class="btn p sm" onclick="exportCsv()">تصدير CSV</button><button class="btn o sm" onclick="clearAll()">حذف كل الزيارات</button><button class="btn o sm" onclick="window.print()">طباعة السجل</button></div>
+  </div>
 </main>
 <script src="assets/common.js"></script>
 <script src="assets/log.js"></script>
